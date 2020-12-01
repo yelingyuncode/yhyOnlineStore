@@ -6,6 +6,7 @@ import com.atguigu.gmall.model.product.SpuSaleAttr;
 import com.atguigu.gmall.model.product.SpuSaleAttrValue;
 import com.atguigu.gmall.product.mapper.SpuMapper;
 import com.atguigu.gmall.product.service.SpuService;
+import com.atguigu.gmall.product.service.mapper.SpuImageMapper;
 import com.atguigu.gmall.product.service.mapper.SpuSaleAttrMapper;
 import com.atguigu.gmall.product.service.mapper.SpuSaleAttrValueMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,6 +25,8 @@ public class SpuServiceImpl implements SpuService {
     private SpuSaleAttrMapper spuSaleAttrMapper;
     @Autowired
     private SpuSaleAttrValueMapper spuSaleAttrValueMapper;
+    @Autowired
+    private SpuImageMapper spuImageMapper;
     @Override
     public IPage<SpuInfo> pageSpuList(IPage<SpuInfo> page, long category3Id) {
         QueryWrapper<SpuInfo> wrapper = new QueryWrapper<>();
@@ -46,6 +49,8 @@ public class SpuServiceImpl implements SpuService {
             //说明有值 ，应该遍历插入
             for (SpuImage spuImage : spuImageList) {
                 //现在没弄上传  所以不写
+                spuImage.setSpuId(spu_id);
+                spuImageMapper.insert(spuImage);
             }
 
         }
