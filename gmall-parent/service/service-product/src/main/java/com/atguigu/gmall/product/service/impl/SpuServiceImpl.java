@@ -64,6 +64,8 @@ public class SpuServiceImpl implements SpuService {
                 List<SpuSaleAttrValue> spuSaleAttrValueList = spuSaleAttr.getSpuSaleAttrValueList();
                 if (null != spuSaleAttrValueList){
                     for (SpuSaleAttrValue spuSaleAttrValue : spuSaleAttrValueList) {
+                        String saleAttrName = spuSaleAttr.getSaleAttrName();
+                        spuSaleAttrValue.setSaleAttrName(saleAttrName);
                         spuSaleAttrValue.setSpuId(spu_id);
                         spuSaleAttrValue.setBaseSaleAttrId(spuSaleAttr.getBaseSaleAttrId());
                         spuSaleAttrValueMapper.insert(spuSaleAttrValue);
