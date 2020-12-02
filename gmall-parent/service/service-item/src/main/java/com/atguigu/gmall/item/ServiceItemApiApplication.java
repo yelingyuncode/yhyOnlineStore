@@ -1,17 +1,18 @@
-package com.atguigu.gmall.product;
+package com.atguigu.gmall.item;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@EnableFeignClients("com.atguigu.gmall")
 @ComponentScan("com.atguigu.gmall")
 @EnableDiscoveryClient
-@EnableFeignClients
-public class ServiceProductApplication {
+public class ServiceItemApiApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ServiceProductApplication.class,args);
+        SpringApplication.run(ServiceItemApiApplication.class,args);
     }
 }

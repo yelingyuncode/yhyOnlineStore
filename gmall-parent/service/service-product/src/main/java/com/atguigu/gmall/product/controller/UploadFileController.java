@@ -21,7 +21,7 @@ public class UploadFileController {
 
     @RequestMapping("fileUpload")
     public Result fileUpload(@RequestParam("file") MultipartFile multipartFile) throws Exception {
-        String url = "http://192.168.25.49:80";
+        String url = "http://192.168.200.128:8080";
         String path = UploadFileController.class.getClassLoader().getResource("tracker.conf").getPath();
         ClientGlobal.init(path);
         TrackerClient trackerClient = new TrackerClient();
@@ -35,7 +35,6 @@ public class UploadFileController {
         //拿到返回的url
         for (String jpg : jpgs) {
             url = url + "/" + jpg;
-
         }
 
         return Result.ok(url);

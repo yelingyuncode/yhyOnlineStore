@@ -3,6 +3,8 @@ package com.atguigu.gmall.product.service;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.math.BigDecimal;
+
 public interface SkuInfoService {
     IPage<SkuInfo> list(IPage<SkuInfo> page1);
 
@@ -11,4 +13,8 @@ public interface SkuInfoService {
     void onSale(long skuId);
 
     void cancelSale(long skuId);
+
+    BigDecimal getPrice(long skuId);
+
+    SkuInfo getSkuInfoById(long skuId);
 }
