@@ -20,6 +20,7 @@ public class BaseAttrApiController {
     @RequestMapping ("/getAttrValueList/{attrId}")
     public Result getAttrValueList(@PathVariable Long attrId){
 
+
         List<BaseAttrValue> baseAttrValues =  baseAttrService.getAttrValueList(attrId);
     return Result.ok(baseAttrValues);
     }

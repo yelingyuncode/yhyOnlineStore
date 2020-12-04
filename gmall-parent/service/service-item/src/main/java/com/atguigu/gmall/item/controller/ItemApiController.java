@@ -19,7 +19,7 @@ public class ItemApiController {
     ItemService itemService;
 
     @RequestMapping("getItem/{skuId}")
-    Map<String,Object> getItem(@PathVariable("skuId") long skuId){
+    Map<String,Object> getItem(@PathVariable("skuId") Long skuId){
        Map<String,Object> map =  itemService.getItem(skuId);
 
        return map;

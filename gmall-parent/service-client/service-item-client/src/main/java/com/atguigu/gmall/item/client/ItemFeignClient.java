@@ -9,5 +9,5 @@ import java.util.Map;
 @FeignClient(value = "service-item")
 public interface ItemFeignClient {
     @RequestMapping("api/item/getItem/{skuId}")
-    Map<String,Object> getItem(@PathVariable("skuId") long skuId);
+    Map<String,Object> getItem(@PathVariable("skuId") Long skuId);
 }

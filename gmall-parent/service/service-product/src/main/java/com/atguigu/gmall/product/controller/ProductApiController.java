@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/product")
@@ -27,21 +28,20 @@ public class ProductApiController {
     BaseCategoryViewService baseCategoryViewService;
 
     @RequestMapping("getPrice/{skuId}")
-    BigDecimal getPrice(@PathVariable("skuId") long skuId){
+    BigDecimal getPrice(@PathVariable("skuId") Long skuId){
 
         BigDecimal bigDecimal = skuInfoService.getPrice(skuId);
         return bigDecimal;
     }
     @RequestMapping("getSkuInfoById/{skuId}")
-    SkuInfo getSkuInfoById(@PathVariable long skuId){
+    SkuInfo getSkuInfoById(@PathVariable Long skuId){
        SkuInfo skuInfo = skuInfoService.getSkuInfoById(skuId);
         return skuInfo;
     }
-    @RequestMapping("getSpuSaleAttrListBySpuId/{spuId}")
-    List<SpuSaleAttr> getSpuSaleAttrListBySpuId(@PathVariable("spuId") Long spuId){
-        QueryWrapper<SpuSaleAttr> wrapper = new QueryWrapper<>();
-        wrapper.eq("spu_id", spuId);
-        List<SpuSaleAttr> saleAttrs = spuSaleAttrService.spuSaleAttrList(spuId);
+    @RequestMapping("getSpuSaleAttrListBySpuId/{spuId}/{skuId}")
+    List<SpuSaleAttr> getSpuSaleAttrListBySpuId(@PathVariable("spuId") Long spuId,
+                                                @PathVariable("skuId") Long skuId){
+        List<SpuSaleAttr> saleAttrs = spuSaleAttrService.getSpuSaleAttrListBySpuId(spuId,skuId);
         return saleAttrs;
     }
     @RequestMapping("/getCategoryViewByCategory3Id/{category3Id}")
@@ -49,5 +49,10 @@ public class ProductApiController {
         BaseCategoryView baseCategoryView = baseCategoryViewService.getCategoryViewByCategory3Id(category3Id);
 
         return baseCategoryView;
+    }
+    @RequestMapping("getSaleAttrValuesBySpu/{spuId}")
+    Map<String, Long> getSaleAttrValuesBySpu(@PathVariable("spuId") Long spuId){
+       Map<String,Long> map = spuSaleAttrService.getSaleAttrValuesBySpu(spuId);
+        return map;
     }
 }
