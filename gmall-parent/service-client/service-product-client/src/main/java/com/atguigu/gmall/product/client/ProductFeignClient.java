@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.client;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.product.BaseCategoryView;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
@@ -24,4 +25,7 @@ public interface ProductFeignClient {
     BaseCategoryView getCategoryViewByCategory3Id(@PathVariable("category3Id") Long category3Id);
     @RequestMapping("api/product/getSaleAttrValuesBySpu/{spuId}")
     Map<String, Long> getSaleAttrValuesBySpu(@PathVariable("spuId") Long spuId);
+    @RequestMapping("api/product/getBaseCategoryList")
+    List<JSONObject> getBaseCategoryList();
+
 }

@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.product.BaseCategory1;
 import com.atguigu.gmall.model.product.BaseCategory2;
@@ -40,4 +41,7 @@ public class CategoryApiController {
        List<BaseCategory1> baseCategory1List =  categoryService.getCategory1();
         return Result.ok(baseCategory1List);
     }
+
+
+
 }

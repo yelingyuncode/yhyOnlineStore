@@ -1,6 +1,7 @@
 package com.atguigu.gmall.product.service.impl;
 
 import com.atguigu.gmall.common.constant.RedisConst;
+import com.atguigu.gmall.config.GmallCache;
 import com.atguigu.gmall.model.product.SkuAttrValue;
 import com.atguigu.gmall.model.product.SkuImage;
 import com.atguigu.gmall.model.product.SkuInfo;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class SkuInfoServiceImpl implements SkuInfoService {
@@ -98,23 +101,55 @@ public class SkuInfoServiceImpl implements SkuInfoService {
         BigDecimal price = skuInfo.getPrice();
         return price;
     }
-
+   @GmallCache
     @Override
     public SkuInfo getSkuInfoById(Long skuId) {
-        long start = System.currentTimeMillis();
-
-        //先去查询redis
-        SkuInfo skuInfo = (SkuInfo) redisTemplate.opsForValue().get(RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKUKEY_SUFFIX);
-        if (skuInfo == null){
-            //去数据库查
-            skuInfo=getSkuInfoFromDB(skuId);
-            //查完应该放到缓存
-            redisTemplate.opsForValue().set(RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKUKEY_SUFFIX, skuInfo);
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("耗时：" + (end -start )+"毫秒");
-        return skuInfo;
+        return getSkuInfoFromDB(skuId);
     }
+
+
+
+//    private SkuInfo getSkuInfoBack(Long skuId) {
+//        //先去查询redis
+//        SkuInfo skuInfo = (SkuInfo) redisTemplate.opsForValue().get(RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKUKEY_SUFFIX);
+//        if (skuInfo == null){
+//
+//            //先去redis  setnx  加把锁
+//            String uuid = UUID.randomUUID().toString();
+//            Boolean ok = redisTemplate.opsForValue().setIfAbsent("sku:"+skuId+":lock",uuid, 2, TimeUnit.SECONDS);
+//            if (ok){
+//                //去数据库查
+//                skuInfo=getSkuInfoFromDB(skuId);
+//                //如果查到了
+//                if(skuInfo != null){
+//                    //查完应该放到缓存
+//                    redisTemplate.opsForValue().set(RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKUKEY_SUFFIX, skuInfo);
+//                    String openKey = (String)redisTemplate.opsForValue().get("sku:" + skuId + ":lock");
+//                    if (uuid.equals(openKey)){
+//
+//                        //除掉分布式锁的key
+//                        redisTemplate.delete("sku:"+skuId+":lock");
+//                    }
+//
+//                }else {
+//                    //返回一个空值，设置一个空缓存
+//                    redisTemplate.opsForValue().set(RedisConst.SKUKEY_PREFIX + skuId + RedisConst.SKUKEY_SUFFIX, skuInfo,5,TimeUnit.SECONDS);
+//
+//                }
+//
+//
+//            }else {
+//                //有人在查  只需要等几秒  然后自己去查缓存即可
+//                try {
+//                    Thread.sleep(10000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                getSkuInfoById(skuId);
+//            }
+//        }
+//        return skuInfo;
+//    }
 
     private SkuInfo getSkuInfoFromDB(Long skuId) {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
