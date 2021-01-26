@@ -1,6 +1,10 @@
 package com.atguigu.gmall.product.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.atguigu.gmall.model.list.SearchAttr;
+import com.atguigu.gmall.model.product.*;
+import com.atguigu.gmall.product.service.*;
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.product.BaseCategoryView;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
@@ -28,8 +32,6 @@ public class ProductApiController {
     SpuSaleAttrService spuSaleAttrService;
     @Autowired
     BaseCategoryViewService baseCategoryViewService;
-    @Autowired
-    private CategoryService categoryService;
 
     @RequestMapping("getPrice/{skuId}")
     BigDecimal getPrice(@PathVariable("skuId") Long skuId){

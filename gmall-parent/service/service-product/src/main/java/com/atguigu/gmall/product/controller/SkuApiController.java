@@ -1,6 +1,7 @@
 package com.atguigu.gmall.product.controller;
 
 import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.list.client.ListFeignClient;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.product.service.SkuInfoService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -15,6 +16,8 @@ public class SkuApiController {
     //http://api.gmall.com/admin/product/saveSkuInfo
     @Autowired
     private SkuInfoService skuInfoService;
+    @Autowired
+    private ListFeignClient listFeignClient;
     @RequestMapping("saveSkuInfo")
     public Result saveSkuInfo(@RequestBody SkuInfo skuInfo){
 
@@ -37,7 +40,7 @@ public class SkuApiController {
     public Result onSale(@PathVariable long skuId){
         // todo  es相关操作没做
         skuInfoService.onSale(skuId);
-
+        listFeignClient.onSale(skuId);
         return Result.ok();
 
     }
@@ -46,6 +49,7 @@ public class SkuApiController {
     public Result cancelSale(@PathVariable long skuId){
         // todo  es相关操作没做
         skuInfoService.cancelSale(skuId);
+        listFeignClient.cancelSale(skuId);
         return Result.ok();
     }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -19,7 +20,8 @@ public class ItemApiController {
     ItemService itemService;
 
     @RequestMapping("getItem/{skuId}")
-    Map<String,Object> getItem(@PathVariable("skuId") Long skuId){
+    Map<String,Object> getItem(@PathVariable("skuId") Long skuId, HttpServletRequest request){
+        String userId = request.getHeader("userId");
        Map<String,Object> map =  itemService.getItem(skuId);
 
        return map;

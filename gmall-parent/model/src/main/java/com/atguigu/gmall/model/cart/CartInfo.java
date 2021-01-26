@@ -2,11 +2,13 @@ package com.atguigu.gmall.model.cart;
 
 import com.atguigu.gmall.model.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.google.common.hash.HashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Data
 @ApiModel(description = "购物车")
@@ -111,5 +113,12 @@ public class CartInfo extends BaseEntity {
 
     public void setSkuPrice(BigDecimal skuPrice) {
         this.skuPrice = skuPrice;
+    }
+
+
+
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(userId);
     }
 }

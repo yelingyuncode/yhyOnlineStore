@@ -1,7 +1,10 @@
 package com.atguigu.gmall.product.client;
 
 import com.alibaba.fastjson.JSONObject;
+import com.atguigu.gmall.model.list.SearchAttr;
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.product.BaseCategoryView;
+import com.atguigu.gmall.model.product.BaseTrademark;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
 import org.springframework.cloud.openfeign.FeignClient;

@@ -101,7 +101,7 @@ public class SkuInfoServiceImpl implements SkuInfoService {
         BigDecimal price = skuInfo.getPrice();
         return price;
     }
-   @GmallCache
+    @GmallCache
     @Override
     public SkuInfo getSkuInfoById(Long skuId) {
         return getSkuInfoFromDB(skuId);

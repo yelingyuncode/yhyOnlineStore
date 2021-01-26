@@ -4,8 +4,13 @@ import com.atguigu.gmall.model.product.BaseCategoryView;
 import com.atguigu.gmall.product.mapper.BaseCategoryViewMapper;
 import com.atguigu.gmall.product.service.BaseCategoryViewService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.reflections.vfs.Vfs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.reader.StreamReader;
+
+import java.io.File;
+import java.util.stream.Stream;
 
 @Service
 public class BaseCategoryViewServiceImpl implements BaseCategoryViewService {
@@ -13,9 +18,12 @@ public class BaseCategoryViewServiceImpl implements BaseCategoryViewService {
     private BaseCategoryViewMapper baseCategoryViewMapper;
     @Override
     public BaseCategoryView getCategoryViewByCategory3Id(Long category3Id) {
-        QueryWrapper<BaseCategoryView> wrapper = new QueryWrapper<>();
+          QueryWrapper<BaseCategoryView> wrapper = new QueryWrapper<>();
         wrapper.eq("category3_id", category3Id);
         BaseCategoryView baseCategoryView = baseCategoryViewMapper.selectOne(wrapper);
+
+
+
         return baseCategoryView;
 
     }

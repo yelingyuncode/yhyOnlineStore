@@ -14,6 +14,20 @@
             bi.id = bv.attr_id
         and bi.category_level = #{category_level} and bi.category_id = #{category_id}
     </select>
+    <select id="selectSearchAttrList" resultType="com.atguigu.gmall.model.list.SearchAttr" >
+SELECT
+	a.id AS attrId,
+	a.attr_name AS attrName,
+	b.value_name AS attrValue
+FROM
+	base_attr_info a,
+	base_attr_value b,
+	sku_attr_value c
+WHERE
+	c.sku_id = #{sku_id}
+AND c.attr_id = a.id
+AND c.value_id = b.id
+    </select>
     <resultMap id="selectAttrInfoListMap" type="com.atguigu.gmall.model.product.BaseAttrInfo" autoMapping="true">
         <id property="id" column="bi_id"></id>
         <collection property="attrValueList" ofType="com.atguigu.gmall.model.product.BaseAttrValue" autoMapping="true">
